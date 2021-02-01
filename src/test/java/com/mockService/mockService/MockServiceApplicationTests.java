@@ -1,13 +1,13 @@
-package com.jpaDB.jpaDB;
+package com.mockService.mockService;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class JpaDbApplicationTests {
+class MockServiceApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+	@Test
+	void contextLoads() {
+	}
 
 }
