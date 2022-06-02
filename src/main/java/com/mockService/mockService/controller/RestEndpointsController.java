@@ -1,9 +1,7 @@
 package com.mockService.mockService.controller;
 
-import com.mockService.mockService.service.PdpdcService;
-import com.mockService.mockService.service.PranRFlRechargeService;
-import com.mockService.mockService.service.RobiDirectRechargeService;
-import com.mockService.mockService.service.RuetService;
+import com.mockService.mockService.service.*;
+import com.mockService.mockService.service.EBLCardSdkService;
 import com.mockService.mockService.service.impl.PdpdcImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,6 +21,18 @@ public class RestEndpointsController {
     private RobiDirectRechargeService robiDirectRechargeService;
     @Autowired
     private PranRFlRechargeService pranRFlRechargeService;
+    @Autowired
+    private EBLCardSdkService eblCardSdkService;
+    @Autowired
+    private RocketService rocketService;
+    @Autowired
+    private RocketCheckoutService rocketCheckoutService;
+    @Autowired
+    private Pran_rflService pran_rflService;
+    @Autowired
+    private CityBankService cityBankService;
+
+
 
 
 
@@ -110,6 +120,65 @@ public class RestEndpointsController {
         /*Map<String, Object> props = new HashMap<>();
         props.put(SOAPMessage.WRITE_XML_DECLARATION, "true");*/
         return pranRFlRechargeService.getPranRflSuccessRes();
+    }
+
+    @RequestMapping(method = RequestMethod.POST,value = "/api/rest/version/60/merchant/**",produces = "application/json")
+    public String eblEnquiry(){
+        return eblCardSdkService.getEBLSuccess();
+    }
+
+    @RequestMapping(method = RequestMethod.POST,value = "/api/v1/transactionValidation",produces = "application/xml")
+    public String rocketTxnValidation(){
+        return rocketService.getTxnEligibility();
+    }
+
+    @RequestMapping(method = RequestMethod.POST,value = "/api/v1/doTransaction",produces = "application/xml")
+    public String rocketDoTxn(){
+        return rocketService.doTxn();
+    }
+
+    @RequestMapping(method = RequestMethod.POST,value = "/api/v1/transactionInquiry",produces = "application/xml")
+    public String rocketDoInquiry(){
+        return rocketService.doInquiry();
+    }
+
+    @RequestMapping(method = RequestMethod.POST,value = "/api/v1/recieveTransactionStatus",produces = "application/xml")
+    public String rocketGetTxnStatus(){
+        return rocketService.getTxnStatus();
+    }
+
+    @RequestMapping(method = RequestMethod.POST,value = "/getransid",produces = "application/xml")
+    public String rocketGetTxnId(){
+        return rocketCheckoutService.getTxnId();
+    }
+
+    @RequestMapping(method = RequestMethod.POST,value = "/getresultfield",produces = "application/xml")
+    public String rocketGetResultField(){
+        return rocketCheckoutService.getResultField();
+    }
+    @RequestMapping(method = RequestMethod.POST,value = "/callbackapi/**",produces = "application/json")
+    public String rocketCallBackURL(){
+        return rocketService.callBackURL();
+    }
+
+    @RequestMapping(method = RequestMethod.POST,value = "/api/SendTopUp",produces = "application/json")
+    public String pranRFLTallyPay()
+    {
+        return pran_rflService.getPranSuccessRes();
+    }
+    @RequestMapping(method = RequestMethod.POST,value = "/api/mock-bank-txn/other-bank-status",produces = "application/xml")
+    public String getCityOtherBankTxnStatus(){
+        return cityBankService.getPendingEftTxnStatus();
+    }
+
+    @RequestMapping(method = RequestMethod.POST,value = "/doDebitTransaction",produces = "application/xml")
+    public String cityBankCashIn(){
+        return cityBankService.doDebitTxn();
+    }
+
+    @RequestMapping(method = RequestMethod.POST,value = "/doCreditTransaction",produces = "application/xml")
+    public String cityBankCashOut(){
+        return cityBankService.doCreditTxn();
     }
 
 }

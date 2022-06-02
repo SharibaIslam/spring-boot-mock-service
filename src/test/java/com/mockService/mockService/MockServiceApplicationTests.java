@@ -3,11 +3,11 @@ package com.mockService.mockService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class MockServiceApplicationTests {
 
-	@Test
+	/*@Test
 	void contextLoads() {
 	}
-
+*/
 }

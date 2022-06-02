@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static sun.misc.Version.println;
 
 @Service
 public class RuetServiceImpl implements RuetService {
